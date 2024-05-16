@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package article;
+
+message Article {
+    string title = 1;
+    string description = 2;
+    float price = 3;
+}
+
+message GetArticleRequest {
+    string article_id = 1;
+}
+
+
+
+message GetArticleResponse {
+    Article article = 1;
+}
+
+message SearchArticlesRequest {
+    string query = 1;
+}
+
+message SearchArticlesResponse {
+    repeated Article articles = 1;
+}
+
+message CreateArticleRequest {
+    string title = 1;
+    string description = 2;
+    float price = 3;
+    // Autres champs de l'article
+}
+
+message CreateArticleResponse {
+    string id = 1;
+    // Autres détails de l'article créé
+}
+
+message UpdateArticleRequest {
+    string article_id = 1;
+    string title = 2;
+    string description = 3;
+    float price = 4;
+}
+
+message UpdateArticleResponse {
+    Article article = 1;
+}
+
+service ArticleService {
+    rpc GetArticle(GetArticleRequest) returns (GetArticleResponse);
+    rpc SearchArticles(SearchArticlesRequest) returns (SearchArticlesResponse);
+    rpc CreateArticle(CreateArticleRequest) returns (CreateArticleResponse);
+    rpc UpdateArticle(UpdateArticleRequest) returns (UpdateArticleResponse);
+   
+}

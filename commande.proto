@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+import "article.proto";
+
+package commande;
+
+message Commande {
+    string id = 1;
+    string nom = 2;
+    repeated ArticleQuantite articles_quantites = 4;
+}
+
+message ArticleQuantite {
+    article.Article article = 1;
+    int32 quantite = 2;
+}
+
+message GetCommandeRequest {
+    string commande_id = 1;
+}
+
+message GetCommandeResponse {
+    Commande commande = 1;
+}
+
+message CreateCommandeRequest {
+    string nom = 1;
+    repeated ArticleQuantite articles_quantites = 3;
+    // Autres champs de la commande
+}
+
+message CreateCommandeResponse {
+    string id = 1;
+    // Autres détails de la commande créée
+}
+
+message UpdateCommandeRequest {
+    string commande_id = 1;
+    string nom = 2;
+    repeated ArticleQuantite articles_quantites = 4;
+    // Autres champs à mettre à jour dans la commande
+}
+
+message UpdateCommandeResponse {
+    Commande commande = 1;
+    // Informations supplémentaires sur la commande mise à jour
+}
+
+message DeleteCommandeRequest {
+    string commande_id = 1;
+}
+
+message DeleteCommandeResponse {
+    string message = 1;
+    // Informations supplémentaires sur la suppression de la commande
+}
+
+service CommandeService {
+    rpc GetCommande(GetCommandeRequest) returns (GetCommandeResponse);
+    rpc CreateCommande(CreateCommandeRequest) returns (CreateCommandeResponse);
+    rpc UpdateCommande(UpdateCommandeRequest) returns (UpdateCommandeResponse);
+    rpc DeleteCommande(DeleteCommandeRequest) returns (DeleteCommandeResponse);
+}
